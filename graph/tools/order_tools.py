@@ -52,3 +52,4 @@ def get_order_info(lookup_key:str) -> str:
         return f"No order found matching '{lookup_key}'."
     return format_order(order_id, order)
 
+order_tools = [get_order_info]
