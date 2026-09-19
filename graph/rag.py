@@ -3,6 +3,7 @@ from langchain_chroma import Chroma
 
 from graph.data.menu_catelog import MENU_CATALOG
 from graph.config import embeddings
+
 def build_documents() -> list[Document]:
     docs:list[Document] = []
     for item in MENU_CATALOG:

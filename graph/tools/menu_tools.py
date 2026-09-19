@@ -2,7 +2,7 @@ from langchain_core.tools import tool
 from langchain_core.documents import Document
 from graph.rag import menu_retriever
 
-@tool
+@tool("search_menu_catalog", description="Search the SnackStack menu catalog using semantic similarity.")
 def get_menu_info(query:str) -> str:
     """
     Search the SnackStack menu catelog using semantic similarity.

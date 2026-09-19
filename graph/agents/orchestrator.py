@@ -11,7 +11,7 @@ from pydantic import BaseModel, Field
 from langchain_core.messages import SystemMessage, HumanMessage
 
 from graph.logger import logger
-from graph.state import State
+from graph.state import SnackStackState
 from graph.config import llm
 
 SYSTEM_PROMPT = """
@@ -48,7 +48,7 @@ class OrchestratorDecision(BaseModel):
 routing_llm = llm.with_structured_output(OrchestratorDecision)
 
 def orchestrator(
-        state : State  
+        state : SnackStackState  
 ) -> Command[Literal["menu_agent_node", "order_agent_node"]]:
     """
     Classifies the user query and routes it to the appropriate agent for processing.
@@ -75,5 +75,5 @@ def orchestrator(
         "order_reponse": "",
     }
     sends = [Send(f"{agent}_node", clean_state) for agent in result.agents]
-    return Command(goto=sends, update={"route": result.agents})
+    return Command(goto=sends, update={**clean_state, "route": result.agents})
 
